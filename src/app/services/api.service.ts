@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { createClient, Entry } from 'contentful';
-import { Faction } from '../models/faction.model';
-//import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
+import { FactionDto } from '../models/faction_dto.model';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -13,9 +12,7 @@ export class ApiService {
     accessToken: environment.contentful.token
   })
 
-  constructor(
-      //private httpClient: NativeScriptHttpClientModule
-    ) { }
+  constructor( ) { }
 /*
   public getUnits(query?: object): Promise<Entry<any>[]> {
     return this.client.getEntries(Object.assign({
@@ -45,14 +42,15 @@ export class ApiService {
     .then (result => result.items[0]);
   }
   */
-  public async getFactions(): Promise<Faction[]> {
+  public async getEntriesByType(type: string): Promise<Entry<any>[]> {
     const result = await this.client.getEntries(Object.assign({
           content_type: 'faction'
       }));
-      let factions: Faction[] = [];
-      result.items.forEach((faction: Entry<any>) => {
-          factions.push(new Faction(faction.sys.id, faction.fields.name, 'https:/' + faction.fields.symbolImage.fields.file.url));
-      });
-      return factions;
+    return result.items;
   }
+
+    public async getEntryById(id: string): Promise<Entry<any>> {
+        return this.client.getEntry(id);
+    }
+
 }

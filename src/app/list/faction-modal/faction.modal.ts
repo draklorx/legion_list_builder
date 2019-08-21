@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalDialogParams } from "nativescript-angular/directives/dialogs";
-import { ApiService } from "../../services/api.service";
-import { Faction } from "../../models/faction.model";
+import { FactionService } from "../../services/faction.service";
+import { FactionDto } from "../../models/faction_dto.model";
 
 @Component({
     selector: "legion-faction-modal",
@@ -9,18 +9,18 @@ import { Faction } from "../../models/faction.model";
     styleUrls: ["./faction.modal.css"]
 })
 export class FactionModalComponent implements OnInit {
-    public factions: Faction[] = [];
+    public factions: FactionDto[] = [];
 
     public constructor(
         private params: ModalDialogParams,
-        private apiService: ApiService
+        private factionService: FactionService
     ) { }
 
-    public close(response: string) {
-        this.params.closeCallback(response);
+    public chooseFaction(factionId: string) {
+        this.params.closeCallback(factionId);
     }
 
     ngOnInit() {
-        this.apiService.getFactions().then(factions => this.factions = factions);
+        this.factionService.getFactions().then(factions => this.factions = factions);
     }
 }

@@ -1,7 +1,7 @@
 <GridLayout>
     <ListView [items]="factions" class="list-group">
         <ng-template let-faction="item">
-            <StackLayout class="list-group-item" (tap)="close(faction)" orientation="horizontal">
+            <StackLayout class="list-group-item" (tap)="chooseFaction(faction.id)" orientation="horizontal">
                 <Image [src]="faction.imageUrl"></Image>
                 <Label [text]="faction.name" class="label"></Label>
             </StackLayout>

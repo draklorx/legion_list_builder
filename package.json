@@ -23,6 +23,7 @@
     "@angular/router": "~8.0.0",
     "contentful": "^7.9.1",
     "nativescript-angular": "~8.0.0",
+    "nativescript-couchbase": "^1.0.18",
     "nativescript-theme-core": "~1.0.6",
     "net": "^1.0.2",
     "reflect-metadata": "~0.1.12",

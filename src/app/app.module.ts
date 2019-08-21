@@ -1,7 +1,7 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
+import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { ModalDialogService } from "nativescript-angular/modal-dialog";
-import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -9,10 +9,10 @@ import { ListsComponent } from "./list/lists.component";
 import { ListDetailComponent } from "./list/list-details/list-detail.component";
 import { FactionModalComponent } from "./list/faction-modal/faction.modal";
 
-// Uncomment and add to NgModule imports if you need to use two-way binding
-// import { NativeScriptFormsModule } from "nativescript-angular/forms";
+import { LocalStorageService } from "./services/local-storage.service";
+import { ListService } from "./services/list.service";
 
-// Uncomment and add to NgModule imports if you need to use the HttpClient wrapper
+// Uncomment and add to NgModule imports if you need to use two-way binding
 // import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 
 @NgModule({
@@ -21,8 +21,8 @@ import { FactionModalComponent } from "./list/faction-modal/faction.modal";
     ],
     imports: [
         NativeScriptModule,
-        AppRoutingModule,
-        NativeScriptHttpClientModule
+        NativeScriptFormsModule,
+        AppRoutingModule
     ],
     declarations: [
         AppComponent,
@@ -31,7 +31,11 @@ import { FactionModalComponent } from "./list/faction-modal/faction.modal";
         FactionModalComponent
     ],
     entryComponents: [FactionModalComponent],
-    providers: [ModalDialogService],
+    providers: [
+        ModalDialogService,
+        LocalStorageService,
+        ListService
+    ],
     schemas: [
         NO_ERRORS_SCHEMA
     ]

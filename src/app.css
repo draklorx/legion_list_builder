@@ -1,21 +1,32 @@
-/*
-In NativeScript, the app.css file is where you place CSS rules that
-you would like to apply to your entire application. Check out
-http://docs.nativescript.org/ui/styling for a full list of the CSS
-selectors and properties you can use to style UI components.
+@import '~nativescript-theme-core/css/core.dark.css';
 
-/*
-In many cases you may want to use the NativeScript core theme instead
-of writing your own CSS rules. For a full list of class names in the theme
-refer to http://docs.nativescript.org/ui/theme.
-*/
-@import '~nativescript-theme-core/css/core.light.css';
-
-StackLayout.legion-app-wrapper {
-    color: #ddd;
-    border-color: #000;
-    border-width: 10;
+Page {
     background-color: #222;
-    width: 100%;
-    height: 100%;
+    color: #ddd;
+}
+
+ActionBar {
+    background-color: #444;
+    color: #ddd;
+}
+
+ActionBar Button {
+    width:50;
+    height:50;
+    font-size:20;
+    text-align:center;
+    border-radius: 30%;
+    color:#ddd;
+    background-color:#666;
+    border-color: #444;
+    border-width: 4;
+}
+
+ListView StackLayout{
+    background-color: #222;
+    padding:10;
+}
+
+.fa {
+    font-family: "fontawesome-webfont"
 }

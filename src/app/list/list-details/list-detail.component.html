@@ -1,8 +1,11 @@
-<ActionBar title="Details" class="action-bar"></ActionBar>
-<FlexboxLayout flexDirection="column" class="page">
-    <FlexboxLayout class="m-15">
-        <Label class="h2" [text]="list.id + '. '"></Label>
-        <Label class="h2" [text]="list.name"></Label>
-    </FlexboxLayout>
-    <Label class="h4" [text]="list.faction"></Label>
-</FlexboxLayout>
+<ActionBar title="Edit List">
+    <ActionItem (tap)="cancelChanges()">
+        <Button text="&#xf060;" class="fa"></Button>
+    </ActionItem>
+    <ActionItem (tap)="saveChanges()">
+        <Button text="&#xf0c7;" class="fa"></Button>
+    </ActionItem>
+</ActionBar>
+<StackLayout>
+    <TextField [text]="list.name"></TextField>
+</StackLayout>

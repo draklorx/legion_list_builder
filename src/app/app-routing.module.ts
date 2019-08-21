@@ -8,6 +8,7 @@ import { ListDetailComponent } from "./list/list-details/list-detail.component";
 const routes: Routes = [
     { path: "", redirectTo: "/lists", pathMatch: "full" },
     { path: "lists", component: ListsComponent },
+    { path: "list/new/:factionId", component: ListDetailComponent },
     { path: "list/:id", component: ListDetailComponent }
 ];
 

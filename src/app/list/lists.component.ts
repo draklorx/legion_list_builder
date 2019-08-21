@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewContainerRef } from "@angular/core";
 import { ModalDialogService } from "nativescript-angular/directives/dialogs";
 import { FactionModalComponent } from "./faction-modal/faction.modal";
+import { RouterExtensions } from 'nativescript-angular/router';
 
-import { List } from "./list.model";
-import { ListService } from "./list.service";
+import { ListDto } from "../models/list_dto.model";
+import { ListService } from "../services/list.service";
 
 @Component({
     selector: "legion-lists",
@@ -11,7 +12,7 @@ import { ListService } from "./list.service";
     templateUrl: "./lists.component.html"
 })
 export class ListsComponent implements OnInit {
-    lists: Array<List>;
+    lists: ListDto[];
 
     // This pattern makes use of Angular’s dependency injection implementation to
     // inject an instance of the ListService service into this class.
@@ -20,11 +21,12 @@ export class ListsComponent implements OnInit {
     constructor(
         private listService: ListService,
         private modal: ModalDialogService,
-        private vcRef: ViewContainerRef
+        private vcRef: ViewContainerRef,
+        private router: RouterExtensions
     ) { }
 
     ngOnInit(): void {
-        this.lists = this.listService.getLists();
+        this.listService.getLists();
     }
 
     chooseFaction() {
@@ -34,8 +36,10 @@ export class ListsComponent implements OnInit {
             viewContainerRef: this.vcRef
         };
 
-        this.modal.showModal(FactionModalComponent, options).then(response => {
-          console.log(response);
-        })
+        this.modal.showModal(FactionModalComponent, options).then(factionId => {
+            if (factionId) {
+                this.router.navigate(['/list/new', factionId]);
+            }
+        });
     }
 }
