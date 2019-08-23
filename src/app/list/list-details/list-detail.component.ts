@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 
-import { ListDto } from "../../models/list_dto.model";
+import { ListDto } from "../../dtos/list_dto.model";
 import { ListService } from "../../services/list.service";
 import { FactionService } from "../../services/faction.service";
 import { RouterExtensions } from "nativescript-angular/router";
@@ -22,26 +22,24 @@ export class ListDetailComponent implements OnInit {
         private router: RouterExtensions
     ) { }
 
-    ngOnInit(): void {
-        const listIndex = this.route.snapshot.params.id;
-        if (!listIndex) {
-            const factionId = this.route.snapshot.params.factionId;
-            this.factionService.getFactionById(factionId).then(faction => {
-                this.list = new ListDto(
-                    'New List',
-                    faction,
-                    []
-                );
-            });
+    async ngOnInit() {
+        if (this.route.snapshot.params.id) {
+            const listIndex = this.route.snapshot.params.id;
+            this.list = await this.listService.getList(listIndex);
+            this.listIndex = listIndex;
         }
         else {
-            // TODO Get list by ID
-            //this.list = this.listService.getList(listIndex);
-            this.listIndex = listIndex;
+            const factionId = this.route.snapshot.params.factionId;
+            let faction = await this.factionService.getFactionById(factionId);
+            this.list = new ListDto(
+                'New List',
+                faction,
+                []
+            );
         }
     }
 
-    saveChanges() {
+    saveChanges(name:string) {
         if (this.listIndex) {
             this.listService.updateList(this.list, this.listIndex);
         }

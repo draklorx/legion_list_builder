@@ -4,12 +4,12 @@
     </ActionItem>
 </ActionBar>
 <StackLayout>
-    <ListView [items]="lists" class="list-group">
-        <ng-template let-list="item">
-            <FlexboxLayout [nsRouterLink]="['/list', list.id]">
+    <ListView height="150" [items]="lists" class="list-group">
+        <ng-template let-list="item" let-i="index">
+            <FlexboxLayout [nsRouterLink]="['/list', i]">
                 <Image [src]="list.faction.imageUrl" height="20" class="legion-list-faction"></Image>
                 <Label [text]="list.name" class="legion-list-name"></Label>
-                <Label [text]="list.points() + 'pts'" class="legion-list-points"></Label>
+                <Label [text]="getPointsForList(list) + 'pts'" class="legion-list-points"></Label>
             </FlexboxLayout>
         </ng-template>
     </ListView>

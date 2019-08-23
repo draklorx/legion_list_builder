@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { FactionDto } from '../models/faction_dto.model';
+import { FactionDto } from '../dtos/faction_dto.model';
 import { Entry } from 'contentful';
 
 @Injectable({

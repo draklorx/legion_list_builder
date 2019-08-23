@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
-import { ListDto } from '../models/list_dto.model';
+import { ListDto } from '../dtos/list_dto.model';
 import { List } from '../models/list.model';
-import { UnitDto } from '../models/unit_dto.model';
+import { UnitDto } from '../dtos/unit_dto.model';
 import { Unit } from '../models/unit.model';
 import { FactionService } from './faction.service';
-import { FactionDto } from '../models/faction_dto.model';
+import { FactionDto } from '../dtos/faction_dto.model';
 
 @Injectable()
 export class ListService {
@@ -38,37 +38,43 @@ export class ListService {
     }
 
     public async getLists() {
-        let lists: ListDto[] = [];
-        this.lists.forEach(async (list: List) => {
-            let faction = await this.factionService.getFactionById(list.factionId);
-
-            let listDto = new ListDto(
-                list.name,
-                faction,
-                []
-            );
-
-            list.units.forEach(async (unit: Unit) => {
-                //TODO Handle units
-                //let unitDto = await this.unitService.getUnitById(unit.unitId);
-                //listDto.units.push(unitDto);
-            });
-
-            lists.push(listDto);
-        });
-
-        return lists;
+        let listDtos: ListDto[] = [];
+        for (var i=0; i<this.lists.length; i++) {
+            let listDto = await this.buildListDtoFromList(this.lists[i]);
+            listDtos.push(listDto);
+        }
+        return listDtos;
     }
 
-    public getList(listIndex: number): List {
+    public async getList(listIndex: number) {
         if (listIndex >=0 && listIndex < this.lists.length) {
-            return this.lists[listIndex];
+            let listDto = await this.buildListDtoFromList(this.lists[listIndex]);
+            return listDto;
         }
     }
 
     public createList(listDto: ListDto) {
         this.lists.push(this.buildListFromListDto(listDto));
         this.localStorageService.updateDocument({"lists": this.lists}, this.documentId);
+    }
+
+    private async buildListDtoFromList(list: List) {
+
+        let faction = await this.factionService.getFactionById(list.factionId);
+
+        let listDto = new ListDto(
+            list.name,
+            faction,
+            []
+        );
+
+        //list.units.forEach(async (unit: Unit) => {
+            //TODO Handle units
+            //let unitDto = await this.unitService.getUnitById(unit.unitId);
+            //listDto.units.push(unitDto);
+        //});
+
+        return listDto;
     }
 
     private buildListFromListDto(listDto: ListDto) {

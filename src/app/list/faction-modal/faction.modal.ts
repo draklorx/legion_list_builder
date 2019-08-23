@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalDialogParams } from "nativescript-angular/directives/dialogs";
 import { FactionService } from "../../services/faction.service";
-import { FactionDto } from "../../models/faction_dto.model";
+import { FactionDto } from "../../dtos/faction_dto.model";
 
 @Component({
     selector: "legion-faction-modal",
@@ -20,7 +20,8 @@ export class FactionModalComponent implements OnInit {
         this.params.closeCallback(factionId);
     }
 
-    ngOnInit() {
-        this.factionService.getFactions().then(factions => this.factions = factions);
+    async ngOnInit() {
+        let factions = await this.factionService.getFactions();
+        this.factions = factions;
     }
 }

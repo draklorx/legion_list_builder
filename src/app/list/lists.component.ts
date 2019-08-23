@@ -1,9 +1,13 @@
 import { Component, OnInit, ViewContainerRef } from "@angular/core";
 import { ModalDialogService } from "nativescript-angular/directives/dialogs";
 import { FactionModalComponent } from "./faction-modal/faction.modal";
-import { RouterExtensions } from 'nativescript-angular/router';
+import { isAndroid } from "tns-core-modules/platform";
+import * as application from "tns-core-modules/application";
+import { AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules/application";
+import { Router } from "@angular/router";
 
-import { ListDto } from "../models/list_dto.model";
+
+import { ListDto } from "../dtos/list_dto.model";
 import { ListService } from "../services/list.service";
 
 @Component({
@@ -22,11 +26,19 @@ export class ListsComponent implements OnInit {
         private listService: ListService,
         private modal: ModalDialogService,
         private vcRef: ViewContainerRef,
-        private router: RouterExtensions
+        private router: Router
     ) { }
 
-    ngOnInit(): void {
-        this.listService.getLists();
+    async ngOnInit() {
+        if (!isAndroid) {
+          return;
+        }
+        application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
+          if (this.router.url == "" || this.router.url == "/lists") {
+            data.cancel = true; // prevents default back button behavior
+          }
+        });
+        this.lists = await this.listService.getLists();
     }
 
     chooseFaction() {
@@ -38,8 +50,16 @@ export class ListsComponent implements OnInit {
 
         this.modal.showModal(FactionModalComponent, options).then(factionId => {
             if (factionId) {
-                this.router.navigate(['/list/new', factionId]);
+                // This is a bit of a hack. When closing the modal it always routes back.
+                // This creates a race condition where this navigate may fire before or after that back route.
+                // Delay this route by a few miliseconds to ensure it always fires first.
+                setTimeout(() => { this.router.navigate(['/list/new', factionId]) }, 30);
             }
+
         });
+    }
+
+    getPointsForList(listDto: ListDto) {
+        return this.listService.getPointsForList(listDto);
     }
 }
