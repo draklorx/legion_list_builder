@@ -6,6 +6,7 @@ import { UnitDto } from '../dtos/unit_dto.model';
 import { Unit } from '../models/unit.model';
 import { FactionService } from './faction.service';
 import { FactionDto } from '../dtos/faction_dto.model';
+import { UnitService } from '../services/unit.service'
 
 @Injectable()
 export class ListService {
@@ -13,7 +14,11 @@ export class ListService {
     private documentId: string = "lists";
 
 
-    constructor(private localStorageService: LocalStorageService, private factionService: FactionService) {
+    constructor(
+        private localStorageService: LocalStorageService,
+        private factionService: FactionService,
+        private unitService: UnitService
+    ) {
         let listsDocument = this.localStorageService.getDocument(this.documentId);
         if (listsDocument == null) {
             this.localStorageService.createDocument({"lists": []}, this.documentId);
@@ -68,11 +73,10 @@ export class ListService {
             []
         );
 
-        //list.units.forEach(async (unit: Unit) => {
-            //TODO Handle units
-            //let unitDto = await this.unitService.getUnitById(unit.unitId);
-            //listDto.units.push(unitDto);
-        //});
+        list.units.forEach(async (unit: Unit) => {
+            let unitDto = await this.unitService.getUnitById(unit.unitId);
+            listDto.units.push(unitDto);
+        });
 
         return listDto;
     }

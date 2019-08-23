@@ -1,0 +1,9 @@
+<GridLayout>
+    <ListView [items]="units" class="list-group">
+        <ng-template let-unit="item">
+            <StackLayout class="list-group-item" (tap)="chooseUnit(unit)" orientation="horizontal">
+                <Image [src]="unit.cardFrontImageUrl"></Image>
+            </StackLayout>
+        </ng-template>
+    </ListView>
+</GridLayout>

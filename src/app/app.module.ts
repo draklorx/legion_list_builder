@@ -8,6 +8,9 @@ import { AppComponent } from "./app.component";
 import { ListsComponent } from "./list/lists.component";
 import { ListDetailComponent } from "./list/list-details/list-detail.component";
 import { FactionModalComponent } from "./list/faction-modal/faction.modal";
+import { RankModalComponent } from "./list/list-details/rank-modal/rank.modal";
+import { UnitModalComponent } from "./list/list-details/unit-modal/unit.modal";
+
 
 import { LocalStorageService } from "./services/local-storage.service";
 import { ListService } from "./services/list.service";
@@ -28,9 +31,15 @@ import { ListService } from "./services/list.service";
         AppComponent,
         ListsComponent,
         ListDetailComponent,
-        FactionModalComponent
+        FactionModalComponent,
+        RankModalComponent,
+        UnitModalComponent
     ],
-    entryComponents: [FactionModalComponent],
+    entryComponents: [
+        FactionModalComponent,
+        RankModalComponent,
+        UnitModalComponent
+    ],
     providers: [
         ModalDialogService,
         LocalStorageService,

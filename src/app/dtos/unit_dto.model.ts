@@ -1,8 +1,12 @@
+import { FactionDto } from './faction_dto.model';
+import { RankDto } from './rank_dto.model';
 export class UnitDto {
     constructor(
         public id: string,
         public name: string,
-        public faction: string,
-        public points: number
+        public faction: FactionDto,
+        public rank: RankDto,
+        public points: number,
+        public cardFrontImageUrl: string
     ) { }
 }

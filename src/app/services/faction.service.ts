@@ -14,9 +14,17 @@ export class FactionService {
       let factionData = await this.apiService.getEntriesByType('faction') as Entry<any>[];
       let factions: FactionDto[] = [];
       factionData.forEach((faction: Entry<any>) => {
-          factions.push(new FactionDto(faction.sys.id, faction.fields.name, 'https:/' + faction.fields.symbolImage.fields.file.url));
+          factions.push(this.buildFactionDtoFromApiData(faction));
       });
       return factions;
+  }
+
+  public buildFactionDtoFromApiData(apiData: Entry<any>): FactionDto {
+      return new FactionDto(
+          apiData.sys.id,
+          apiData.fields.name,
+          this.apiService.imagePrefix + apiData.fields.symbolImage.fields.file.url
+      );
   }
 
   public async getFactionById(id: string) {

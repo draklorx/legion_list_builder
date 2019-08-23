@@ -13,7 +13,8 @@ import { ListService } from "../services/list.service";
 @Component({
     selector: "legion-lists",
     moduleId: module.id,
-    templateUrl: "./lists.component.html"
+    templateUrl: "./lists.component.html",
+    styleUrls: ["./lists.component.css"]
 })
 export class ListsComponent implements OnInit {
     lists: ListDto[];

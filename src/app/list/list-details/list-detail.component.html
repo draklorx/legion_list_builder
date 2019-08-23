@@ -5,7 +5,19 @@
     <ActionItem (tap)="saveChanges(list.name)">
         <Button text="&#xf0c7;" class="fa"></Button>
     </ActionItem>
+    <ActionItem (tap)="chooseRank()">
+        <Button text="&#xf067;" class="fa"></Button>
+    </ActionItem>
 </ActionBar>
 <StackLayout>
     <TextField [(ngModel)]="list.name" *ngIf="list"></TextField>
+</StackLayout>
+<StackLayout>
+    <ListView [items]="list.units" class="list-group" height="100%">
+        <ng-template let-unit="item" let-i="index">
+            <StackLayout class="legion-list-row" orientation="horizontal">
+                <Image [src]="unit.cardFrontImageUrl"></Image>
+            </StackLayout>
+        </ng-template>
+    </ListView>
 </StackLayout>

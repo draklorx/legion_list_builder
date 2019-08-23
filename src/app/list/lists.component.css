@@ -1,7 +1,25 @@
+.legion-list-row {
+    padding: 5;
+    width: 100%;
+}
+
+.legion-list-faction {
+    width: 30;
+}
+
 .legion-list-points {
     text-align:right;
+    width: 20%;
+    padding-right:5;
+}
+
+.legion-list-name-faction {
+    width: 80%;
 }
 
 .legion-list-name {
+    margin-top:3;
     margin-left: 10;
+    font-size:18;
+    line-height:30;
 }

@@ -1,4 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewContainerRef } from "@angular/core";
+import { ModalDialogService } from "nativescript-angular/directives/dialogs";
+import { RankModalComponent } from "./rank-modal/rank.modal";
+import { UnitModalComponent } from "./unit-modal/unit.modal";
 import { ActivatedRoute } from "@angular/router";
 
 import { ListDto } from "../../dtos/list_dto.model";
@@ -19,7 +22,10 @@ export class ListDetailComponent implements OnInit {
         private listService: ListService,
         private factionService: FactionService,
         private route: ActivatedRoute,
-        private router: RouterExtensions
+        private router: RouterExtensions,
+        private modal: ModalDialogService,
+        private vcRef: ViewContainerRef,
+
     ) { }
 
     async ngOnInit() {
@@ -37,6 +43,34 @@ export class ListDetailComponent implements OnInit {
                 []
             );
         }
+    }
+
+    chooseRank() {
+        let options = {
+            context: {},
+            fullscreen: false,
+            viewContainerRef: this.vcRef
+        };
+
+        this.modal.showModal(RankModalComponent, options).then(rankId => {
+            if (rankId) {
+                let options = {
+                    context: {
+                        factionId: this.list.faction.id,
+                        rankId: rankId
+                    },
+                    fullscreen: true,
+                    viewContainerRef: this.vcRef
+                };
+                this.modal.showModal(UnitModalComponent, options).then(unit => {
+                    if (unit) {
+                        this.list.units.push(unit)
+                    }
+
+                });
+            }
+
+        });
     }
 
     saveChanges(name:string) {
