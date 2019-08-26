@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewContainerRef } from "@angular/core";
 import { ModalDialogService } from "nativescript-angular/directives/dialogs";
-import { RankModalComponent } from "./rank-modal/rank.modal";
-import { UnitModalComponent } from "./unit-modal/unit.modal";
+import { RankModalComponent } from "../rank-modal/rank.modal";
+import { UnitModalComponent } from "../unit-modal/unit.modal";
 import { ActivatedRoute } from "@angular/router";
 
 import { ListDto } from "../../dtos/list_dto.model";

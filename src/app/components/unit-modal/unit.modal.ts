@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalDialogParams } from "nativescript-angular/directives/dialogs";
-import { UnitService } from "../../../services/unit.service";
-import { UnitDto } from "../../../dtos/unit_dto.model";
+import { UnitService } from "../../services/unit.service";
+import { UnitDto } from "../../dtos/unit_dto.model";
 
 @Component({
     selector: "legion-unit-modal",

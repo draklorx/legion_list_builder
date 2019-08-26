@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalDialogParams } from "nativescript-angular/directives/dialogs";
-import { RankService } from "../../../services/rank.service";
-import { RankDto } from "../../../dtos/rank_dto.model";
+import { RankService } from "../../services/rank.service";
+import { RankDto } from "../../dtos/rank_dto.model";
 
 @Component({
     selector: "legion-rank-modal",

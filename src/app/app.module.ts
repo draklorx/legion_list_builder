@@ -1,17 +1,21 @@
+// Contrib Modules
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
+import { AppRoutingModule } from "./app-routing.module";
+
+// Contrib Services
 import { ModalDialogService } from "nativescript-angular/modal-dialog";
 
-import { AppRoutingModule } from "./app-routing.module";
+// Custom Components
 import { AppComponent } from "./app.component";
-import { ListsComponent } from "./list/lists.component";
-import { ListDetailComponent } from "./list/list-details/list-detail.component";
-import { FactionModalComponent } from "./list/faction-modal/faction.modal";
-import { RankModalComponent } from "./list/list-details/rank-modal/rank.modal";
-import { UnitModalComponent } from "./list/list-details/unit-modal/unit.modal";
+import { ListsComponent } from "./components/list/lists.component";
+import { ListDetailComponent } from "./components/list-details/list-detail.component";
+import { FactionModalComponent } from "./components/faction-modal/faction.modal";
+import { RankModalComponent } from "./components/rank-modal/rank.modal";
+import { UnitModalComponent } from "./components/unit-modal/unit.modal";
 
-
+// Custom Services
 import { LocalStorageService } from "./services/local-storage.service";
 import { ListService } from "./services/list.service";
 

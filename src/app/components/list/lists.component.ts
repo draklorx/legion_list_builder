@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewContainerRef } from "@angular/core";
 import { ModalDialogService } from "nativescript-angular/directives/dialogs";
-import { FactionModalComponent } from "./faction-modal/faction.modal";
+import { FactionModalComponent } from "../faction-modal/faction.modal";
 import { isAndroid } from "tns-core-modules/platform";
 import * as application from "tns-core-modules/application";
 import { AndroidApplication, AndroidActivityBackPressedEventData } from "tns-core-modules/application";
 import { Router } from "@angular/router";
 
 
-import { ListDto } from "../dtos/list_dto.model";
-import { ListService } from "../services/list.service";
+import { ListDto } from "../../dtos/list_dto.model";
+import { ListService } from "../../services/list.service";
 
 @Component({
     selector: "legion-lists",
