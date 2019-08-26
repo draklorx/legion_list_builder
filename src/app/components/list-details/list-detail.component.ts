@@ -6,13 +6,18 @@ import { ActivatedRoute } from "@angular/router";
 
 import { ListDto } from "../../dtos/list_dto.model";
 import { ListService } from "../../services/list.service";
+import { UnitDto } from "../../dtos/unit_dto.model";
 import { FactionService } from "../../services/faction.service";
 import { RouterExtensions } from "nativescript-angular/router";
+import { UpgradeTypeDto } from "../../dtos/upgrade_type_dto.model";
+import { UpgradeTypeModalComponent } from "../upgrade-type-modal/upgrade_type.modal";
+import { UpgradeModalComponent } from "../upgrade-modal/upgrade.modal";
 
 @Component({
     selector: "legion-list-details",
     moduleId: module.id,
-    templateUrl: "./list-detail.component.html"
+    templateUrl: "./list-detail.component.html",
+    styleUrls: ["./list-detail.component.css"]
 })
 export class ListDetailComponent implements OnInit {
     list: ListDto;
@@ -43,6 +48,36 @@ export class ListDetailComponent implements OnInit {
                 []
             );
         }
+    }
+
+    chooseUpgradeType(unit: UnitDto) {
+        let options = {
+            context: {
+                upgradeSlots: unit.upgradeSlots
+            },
+            fullscreen: false,
+            viewContainerRef: this.vcRef
+        };
+
+        this.modal.showModal(UpgradeTypeModalComponent, options).then(upgradeTypeId => {
+            if (upgradeTypeId) {
+                let options = {
+                    context: {
+                        upgradeTypeId: upgradeTypeId,
+                        unit: unit
+                    },
+                    fullscreen: true,
+                    viewContainerRef: this.vcRef
+                };
+                this.modal.showModal(UpgradeModalComponent, options).then(upgrade => {
+                    if (upgrade) {
+                        unit.upgrades.push(upgrade);
+                    }
+                    console.log(unit.upgrades);
+                });
+            }
+
+        });
     }
 
     chooseRank() {

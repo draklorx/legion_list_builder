@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { LocalStorageService } from './local-storage.service';
+import { LocalStorageService } from './local_storage.service';
 import { ListDto } from '../dtos/list_dto.model';
 import { List } from '../models/list.model';
 import { UnitDto } from '../dtos/unit_dto.model';
 import { Unit } from '../models/unit.model';
 import { FactionService } from './faction.service';
 import { FactionDto } from '../dtos/faction_dto.model';
-import { UnitService } from '../services/unit.service'
+import { UnitService } from '../services/unit.service';
+import { UpgradeService } from '../services/upgrade.service';
+import { UpgradeDto } from '../dtos/upgrade_dto.model';
 
 @Injectable()
 export class ListService {
@@ -17,7 +19,8 @@ export class ListService {
     constructor(
         private localStorageService: LocalStorageService,
         private factionService: FactionService,
-        private unitService: UnitService
+        private unitService: UnitService,
+        private upgradeService: UpgradeService
     ) {
         let listsDocument = this.localStorageService.getDocument(this.documentId);
         if (listsDocument == null) {
@@ -65,7 +68,7 @@ export class ListService {
 
     private async buildListDtoFromList(list: List) {
 
-        let faction = await this.factionService.getFactionById(list.factionId);
+        let faction: FactionDto = await this.factionService.getFactionById(list.factionId);
 
         let listDto = new ListDto(
             list.name,
@@ -73,8 +76,11 @@ export class ListService {
             []
         );
 
-        list.units.forEach(async (unit: Unit) => {
+        list.units.forEach(async unit => {
             let unitDto = await this.unitService.getUnitById(unit.unitId);
+            unit.upgradeIds.forEach(async upgradeId => {
+                let upgradeDto = await this.upgradeService.getUpgradeById(upgradeId);
+            })
             listDto.units.push(unitDto);
         });
 
@@ -92,7 +98,11 @@ export class ListService {
                 unitDto.id,
                 []
             )
-            // TODO: handle upgrades
+
+            unitDto.upgrades.forEach((upgradeDto: UpgradeDto) => {
+                unit.upgradeIds.push(upgradeDto.id);
+            })
+
             list.units.push(unit);
         });
         return list;

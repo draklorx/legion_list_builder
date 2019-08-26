@@ -1,0 +1,9 @@
+<GridLayout>
+        <ListView [items]="upgrades" class="list-group">
+            <ng-template let-upgrade="item">
+                <StackLayout class="list-group-item" (tap)="chooseUpgrade(upgrade)" orientation="horizontal">
+                    <Image [src]="upgrade.cardImageUrl"></Image>
+                </StackLayout>
+            </ng-template>
+        </ListView>
+    </GridLayout>

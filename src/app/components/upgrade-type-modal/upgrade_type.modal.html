@@ -1,0 +1,10 @@
+<GridLayout>
+    <ListView [items]="upgradeTypes" class="list-group">
+        <ng-template let-upgradeType="item">
+            <StackLayout class="list-group-item" (tap)="chooseUpgradeType(upgradeType.id)" orientation="horizontal">
+                <Image [src]="upgradeType.imageUrl"></Image>
+                <Label [text]="upgradeType.name" class="label"></Label>
+            </StackLayout>
+        </ng-template>
+    </ListView>
+</GridLayout>

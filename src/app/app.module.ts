@@ -14,9 +14,11 @@ import { ListDetailComponent } from "./components/list-details/list-detail.compo
 import { FactionModalComponent } from "./components/faction-modal/faction.modal";
 import { RankModalComponent } from "./components/rank-modal/rank.modal";
 import { UnitModalComponent } from "./components/unit-modal/unit.modal";
+import { UpgradeTypeModalComponent } from "./components/upgrade-type-modal/upgrade_type.modal"
+import { UpgradeModalComponent } from "./components/upgrade-modal/upgrade.modal"
 
 // Custom Services
-import { LocalStorageService } from "./services/local-storage.service";
+import { LocalStorageService } from "./services/local_storage.service";
 import { ListService } from "./services/list.service";
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
@@ -37,12 +39,16 @@ import { ListService } from "./services/list.service";
         ListDetailComponent,
         FactionModalComponent,
         RankModalComponent,
-        UnitModalComponent
+        UnitModalComponent,
+        UpgradeTypeModalComponent,
+        UpgradeModalComponent
     ],
     entryComponents: [
         FactionModalComponent,
         RankModalComponent,
-        UnitModalComponent
+        UnitModalComponent,
+        UpgradeTypeModalComponent,
+        UpgradeModalComponent
     ],
     providers: [
         ModalDialogService,
