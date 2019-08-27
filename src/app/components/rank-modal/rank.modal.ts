@@ -4,7 +4,7 @@ import { RankService } from "../../services/rank.service";
 import { RankDto } from "../../dtos/rank_dto.model";
 
 @Component({
-    selector: "legion-rank-modal",
+    selector: "ns-legion-rank-modal",
     templateUrl: "rank.modal.html",
     styleUrls: ["./rank.modal.css"]
 })

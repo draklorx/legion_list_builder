@@ -6,15 +6,16 @@ import { ActivatedRoute } from "@angular/router";
 
 import { ListDto } from "../../dtos/list_dto.model";
 import { ListService } from "../../services/list.service";
-import { UnitDto } from "../../dtos/unit_dto.model";
+import { ListUnitDto } from "../../dtos/list_unit_dto.model";
 import { FactionService } from "../../services/faction.service";
 import { RouterExtensions } from "nativescript-angular/router";
 import { UpgradeTypeDto } from "../../dtos/upgrade_type_dto.model";
 import { UpgradeTypeModalComponent } from "../upgrade-type-modal/upgrade_type.modal";
 import { UpgradeModalComponent } from "../upgrade-modal/upgrade.modal";
+import { ListUnitService } from "~/app/services/list_unit.service";
 
 @Component({
-    selector: "legion-list-details",
+    selector: "ns-legion-list-details",
     moduleId: module.id,
     templateUrl: "./list-detail.component.html",
     styleUrls: ["./list-detail.component.css"]
@@ -50,10 +51,10 @@ export class ListDetailComponent implements OnInit {
         }
     }
 
-    chooseUpgradeType(unit: UnitDto) {
+    chooseUpgradeType(listUnit: ListUnitDto) {
         let options = {
             context: {
-                upgradeSlots: unit.upgradeSlots
+                upgradeSlots: listUnit.upgradeSlots
             },
             fullscreen: false,
             viewContainerRef: this.vcRef
@@ -64,16 +65,15 @@ export class ListDetailComponent implements OnInit {
                 let options = {
                     context: {
                         upgradeTypeId: upgradeTypeId,
-                        unit: unit
+                        unit: listUnit
                     },
                     fullscreen: true,
                     viewContainerRef: this.vcRef
                 };
                 this.modal.showModal(UpgradeModalComponent, options).then(upgrade => {
                     if (upgrade) {
-                        unit.upgrades.push(upgrade);
+                        listUnit.upgrades.push(upgrade);
                     }
-                    console.log(unit.upgrades);
                 });
             }
 
@@ -99,7 +99,7 @@ export class ListDetailComponent implements OnInit {
                 };
                 this.modal.showModal(UnitModalComponent, options).then(unit => {
                     if (unit) {
-                        this.list.units.push(unit)
+                        this.list.units.push(ListUnitService.generate(unit));
                     }
 
                 });

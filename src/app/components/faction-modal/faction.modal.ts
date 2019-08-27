@@ -4,7 +4,7 @@ import { FactionService } from "../../services/faction.service";
 import { FactionDto } from "../../dtos/faction_dto.model";
 
 @Component({
-    selector: "legion-faction-modal",
+    selector: "ns-legion-faction-modal",
     templateUrl: "faction.modal.html",
     styleUrls: ["./faction.modal.css"]
 })

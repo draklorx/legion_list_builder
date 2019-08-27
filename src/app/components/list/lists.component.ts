@@ -11,7 +11,7 @@ import { ListDto } from "../../dtos/list_dto.model";
 import { ListService } from "../../services/list.service";
 
 @Component({
-    selector: "legion-lists",
+    selector: "ns-legion-lists",
     moduleId: module.id,
     templateUrl: "./lists.component.html",
     styleUrls: ["./lists.component.css"]

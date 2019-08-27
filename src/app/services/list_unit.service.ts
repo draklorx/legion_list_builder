@@ -6,11 +6,12 @@ import { FactionService } from './faction.service';
 import { RankService } from './rank.service';
 import { UpgradeTypeService } from './upgrade_type.service';
 import { UpgradeTypeDto } from '../dtos/upgrade_type_dto.model';
+import { ListUnitDto } from '../dtos/list_unit_dto.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UnitService {
+export class ListUnitService {
 
   constructor(
     private apiService: ApiService,
@@ -19,16 +20,7 @@ export class UnitService {
     private upgradeTypeService: UpgradeTypeService
   ) { }
 
-  public async getUnitsForFactionAndRank(factionId: string, rankId: string) {
-      let unitData = await this.apiService.getEntriesByType('unit', {'fields.faction.sys.id': factionId, 'fields.rank.sys.id': rankId}) as Entry<any>[];
-      let units: UnitDto[] = [];
-      unitData.forEach((unit: Entry<any>) => {
-        units.push(this.buildUnitDtoFromApiData(unit));
-      });
-      return units;
-  }
-
-  public buildUnitDtoFromApiData(apiData: Entry<any>): UnitDto {
+  public buildListUnitDtoFromApiData(apiData: Entry<any>): UnitDto {
     let upgradeSlots: UpgradeTypeDto[] = [];
 
     apiData.fields.upgradeSlots.forEach(upgradeType => {
@@ -46,8 +38,16 @@ export class UnitService {
     );
   }
 
-  public async getUnitById(id: string) {
-    let result = await this.apiService.getEntryById(id) as Entry<any>;
-    return this.buildUnitDtoFromApiData(result);
+  public static generate(unitDto: UnitDto): ListUnitDto {
+      return new ListUnitDto(
+          unitDto.id,
+          unitDto.name,
+          unitDto.faction,
+          unitDto.rank,
+          unitDto.upgradeSlots,
+          unitDto.points,
+          unitDto.cardFrontImageUrl,
+          []
+        );
   }
 }

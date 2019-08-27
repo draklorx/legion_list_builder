@@ -4,7 +4,7 @@ import { UpgradeService } from "../../services/upgrade.service";
 import { UpgradeDto } from "../../dtos/upgrade_dto.model";
 
 @Component({
-    selector: "legion-upgrade-modal",
+    selector: "ns-legion-upgrade-modal",
     templateUrl: "upgrade.modal.html",
     styleUrls: ["./upgrade.modal.css"]
 })

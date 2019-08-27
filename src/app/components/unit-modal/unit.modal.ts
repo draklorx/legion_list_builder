@@ -4,7 +4,7 @@ import { UnitService } from "../../services/unit.service";
 import { UnitDto } from "../../dtos/unit_dto.model";
 
 @Component({
-    selector: "legion-unit-modal",
+    selector: "ns-legion-unit-modal",
     templateUrl: "unit.modal.html",
     styleUrls: ["./unit.modal.css"]
 })

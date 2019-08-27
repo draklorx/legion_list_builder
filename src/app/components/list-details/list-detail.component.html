@@ -9,24 +9,26 @@
         <Button text="&#xf067;" class="fa"></Button>
     </ActionItem>
 </ActionBar>
-<StackLayout>
-    <TextField [(ngModel)]="list.name" *ngIf="list"></TextField>
-</StackLayout>
 <StackLayout *ngIf="list">
-    <ListView [items]="list.units" class="list-group" height="100%">
-        <ng-template let-unit="item" let-i="index">
-            <StackLayout class="legion-list-row">
-                <Image [src]="unit.cardFrontImageUrl" (tap)="chooseUpgradeType(unit)" class="unit-card"></Image>
-                <StackLayout *ngIf="unit.upgrades.length > 0" orientation="horizontal" height="300">
-                    <ListView [items]="unit.upgrades" class="list-group">
-                        <ng-template let-upgrade="item" let-i="index">
-                            <StackLayout>
-                                <Image [src]="upgrade.cardImageUrl" class="upgrade-card"></Image>
-                            </StackLayout>
-                        </ng-template>
-                    </ListView>
+    <StackLayout>
+        <TextField [(ngModel)]="list.name"></TextField>
+    </StackLayout>
+    <StackLayout>
+        <ListView [items]="list.units" class="list-group" height="100%">
+            <ng-template let-unit="item" let-i="index">
+                <StackLayout class="legion-list-row">
+                    <Image [src]="unit.cardFrontImageUrl" (tap)="chooseUpgradeType(unit)" class="unit-card"></Image>
+                    <StackLayout *ngIf="unit.upgrades.length > 0" orientation="horizontal" height="300">
+                        <ListView [items]="unit.upgrades" class="list-group">
+                            <ng-template let-upgrade="item" let-i="index">
+                                <StackLayout>
+                                    <Image [src]="upgrade.cardImageUrl" class="upgrade-card"></Image>
+                                </StackLayout>
+                            </ng-template>
+                        </ListView>
+                    </StackLayout>
                 </StackLayout>
-            </StackLayout>
-        </ng-template>
-    </ListView>-
+            </ng-template>
+        </ListView>
+    </StackLayout>
 </StackLayout>

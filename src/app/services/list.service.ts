@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { LocalStorageService } from './local_storage.service';
 import { ListDto } from '../dtos/list_dto.model';
 import { List } from '../models/list.model';
-import { UnitDto } from '../dtos/unit_dto.model';
 import { Unit } from '../models/unit.model';
 import { FactionService } from './faction.service';
 import { FactionDto } from '../dtos/faction_dto.model';
 import { UnitService } from '../services/unit.service';
+import { ListUnitService } from '../services/list_unit.service';
 import { UpgradeService } from '../services/upgrade.service';
 import { UpgradeDto } from '../dtos/upgrade_dto.model';
+import { ListUnitDto } from '../dtos/list_unit_dto.model';
 
 @Injectable()
 export class ListService {
@@ -78,10 +79,12 @@ export class ListService {
 
         list.units.forEach(async unit => {
             let unitDto = await this.unitService.getUnitById(unit.unitId);
+            let listUnitDto = ListUnitService.generate(unitDto);
             unit.upgradeIds.forEach(async upgradeId => {
                 let upgradeDto = await this.upgradeService.getUpgradeById(upgradeId);
+                listUnitDto.upgrades.push(upgradeDto);
             })
-            listDto.units.push(unitDto);
+            listDto.units.push(listUnitDto);
         });
 
         return listDto;
@@ -93,13 +96,13 @@ export class ListService {
             listDto.faction.id,
             []
         );
-        listDto.units.forEach((unitDto: UnitDto) => {
+        listDto.units.forEach((listUnitDto: ListUnitDto) => {
             let unit = new Unit(
-                unitDto.id,
+                listUnitDto.id,
                 []
             )
 
-            unitDto.upgrades.forEach((upgradeDto: UpgradeDto) => {
+            listUnitDto.upgrades.forEach((upgradeDto: UpgradeDto) => {
                 unit.upgradeIds.push(upgradeDto.id);
             })
 
@@ -123,10 +126,13 @@ export class ListService {
         }
     }
 
-    getPointsForList(list: ListDto): number {
+    public getPointsForList(list: ListDto): number {
         let points = 0;
         list.units.forEach(unit => {
             points += unit.points;
+            unit.upgrades.forEach(upgrade => {
+                points += upgrade.points;
+            })
         })
         return points;
     }
