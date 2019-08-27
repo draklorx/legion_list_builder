@@ -11,5 +11,5 @@ export class UnitDto {
         public upgradeSlots: UpgradeTypeDto[],
         public points: number,
         public cardFrontImageUrl: string
-    ) { }
+    ) {}
 }

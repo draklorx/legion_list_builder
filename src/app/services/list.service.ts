@@ -14,8 +14,7 @@ import { ListUnitDto } from '../dtos/list_unit_dto.model';
 @Injectable()
 export class ListService {
     private lists: List[] = [];
-    private documentId: string = "lists";
-
+    private documentId: string = 'lists';
 
     constructor(
         private localStorageService: LocalStorageService,
@@ -25,20 +24,12 @@ export class ListService {
     ) {
         let listsDocument = this.localStorageService.getDocument(this.documentId);
         if (listsDocument == null) {
-            this.localStorageService.createDocument({"lists": []}, this.documentId);
-        }
-        else {
+            this.localStorageService.createDocument({ lists: [] }, this.documentId);
+        } else {
             listsDocument.lists.forEach((listData: List) => {
-                let list = new List(
-                    listData.name,
-                    listData.factionId,
-                    []
-                );
+                let list = new List(listData.name, listData.factionId, []);
                 listData.units.forEach((unitData: Unit) => {
-                    list.units.push(new Unit(
-                        unitData.unitId,
-                        unitData.upgradeIds
-                    ))
+                    list.units.push(new Unit(unitData.unitId, unitData.upgradeIds));
                 });
                 this.lists.push(list);
             });
@@ -48,7 +39,7 @@ export class ListService {
 
     public async getLists() {
         let listDtos: ListDto[] = [];
-        for (var i=0; i<this.lists.length; i++) {
+        for (var i = 0; i < this.lists.length; i++) {
             let listDto = await this.buildListDtoFromList(this.lists[i]);
             listDtos.push(listDto);
         }
@@ -56,7 +47,7 @@ export class ListService {
     }
 
     public async getList(listIndex: number) {
-        if (listIndex >=0 && listIndex < this.lists.length) {
+        if (listIndex >= 0 && listIndex < this.lists.length) {
             let listDto = await this.buildListDtoFromList(this.lists[listIndex]);
             return listDto;
         }
@@ -64,18 +55,13 @@ export class ListService {
 
     public createList(listDto: ListDto) {
         this.lists.push(this.buildListFromListDto(listDto));
-        this.localStorageService.updateDocument({"lists": this.lists}, this.documentId);
+        this.localStorageService.updateDocument({ lists: this.lists }, this.documentId);
     }
 
     private async buildListDtoFromList(list: List) {
-
         let faction: FactionDto = await this.factionService.getFactionById(list.factionId);
 
-        let listDto = new ListDto(
-            list.name,
-            faction,
-            []
-        );
+        let listDto = new ListDto(list.name, faction, []);
 
         list.units.forEach(async unit => {
             let unitDto = await this.unitService.getUnitById(unit.unitId);
@@ -83,7 +69,7 @@ export class ListService {
             unit.upgradeIds.forEach(async upgradeId => {
                 let upgradeDto = await this.upgradeService.getUpgradeById(upgradeId);
                 listUnitDto.upgrades.push(upgradeDto);
-            })
+            });
             listDto.units.push(listUnitDto);
         });
 
@@ -91,20 +77,13 @@ export class ListService {
     }
 
     private buildListFromListDto(listDto: ListDto) {
-        let list = new List(
-            listDto.name,
-            listDto.faction.id,
-            []
-        );
+        let list = new List(listDto.name, listDto.faction.id, []);
         listDto.units.forEach((listUnitDto: ListUnitDto) => {
-            let unit = new Unit(
-                listUnitDto.id,
-                []
-            )
+            let unit = new Unit(listUnitDto.id, []);
 
             listUnitDto.upgrades.forEach((upgradeDto: UpgradeDto) => {
                 unit.upgradeIds.push(upgradeDto.id);
-            })
+            });
 
             list.units.push(unit);
         });
@@ -112,17 +91,16 @@ export class ListService {
     }
 
     public updateList(listDto: ListDto, listIndex: number) {
-        if (listIndex >=0 && listIndex < this.lists.length) {
-
+        if (listIndex >= 0 && listIndex < this.lists.length) {
             this.lists[listIndex] = this.buildListFromListDto(listDto);
-            this.localStorageService.updateDocument({"lists": this.lists}, this.documentId);
+            this.localStorageService.updateDocument({ lists: this.lists }, this.documentId);
         }
     }
 
     public deleteList(listIndex: number) {
-        if (listIndex >=0 && listIndex < this.lists.length) {
+        if (listIndex >= 0 && listIndex < this.lists.length) {
             this.lists.splice(listIndex, 1);
-            this.localStorageService.updateDocument({"lists": this.lists}, this.documentId);
+            this.localStorageService.updateDocument({ lists: this.lists }, this.documentId);
         }
     }
 
@@ -132,8 +110,8 @@ export class ListService {
             points += unit.points;
             unit.upgrades.forEach(upgrade => {
                 points += upgrade.points;
-            })
-        })
+            });
+        });
         return points;
     }
 }

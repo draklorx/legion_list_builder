@@ -16,5 +16,5 @@ export class ListUnitDto extends UnitDto {
         public upgrades: UpgradeDto[]
     ) {
         super(id, name, faction, rank, upgradeSlots, points, cardFrontImageUrl);
-     }
+    }
 }

@@ -1,32 +1,32 @@
 @import '~nativescript-theme-core/css/core.dark.css';
 
 Page {
-    background-color: #222;
-    color: #ddd;
+  background-color: #222;
+  color: #ddd;
 }
 
 ActionBar {
-    background-color: #444;
-    color: #ddd;
+  background-color: #444;
+  color: #ddd;
 }
 
 ActionBar Button {
-    width:50;
-    height:50;
-    font-size:20;
-    text-align:center;
-    border-radius: 30%;
-    color:#ddd;
-    background-color:#666;
-    border-color: #444;
-    border-width: 4;
+  width: 50;
+  height: 50;
+  font-size: 20;
+  text-align: center;
+  border-radius: 30%;
+  color: #ddd;
+  background-color: #666;
+  border-color: #444;
+  border-width: 4;
 }
 
-ListView StackLayout{
-    background-color: #222;
-    padding:10;
+ListView StackLayout {
+  background-color: #222;
+  padding: 10;
 }
 
 .fa {
-    font-family: "fontawesome-webfont"
+  font-family: 'fontawesome-webfont';
 }

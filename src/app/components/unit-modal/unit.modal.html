@@ -2,7 +2,7 @@
     <ListView [items]="units" class="list-group">
         <ng-template let-unit="item">
             <StackLayout class="list-group-item" (tap)="chooseUnit(unit)" orientation="horizontal">
-                <Image [src]="unit.cardFrontImageUrl"></Image>
+                <Image [src]="unit.cardFrontImageUrl" class="card-front"></Image>
             </StackLayout>
         </ng-template>
     </ListView>

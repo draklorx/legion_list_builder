@@ -10,9 +10,9 @@ export class ApiService {
     private client = createClient({
         space: environment.contentful.spaceId,
         accessToken: environment.contentful.token
-    })
+    });
 
-    constructor( ) { }
+    constructor() {}
 
     public async getEntriesByType(type: string, params: any = {}): Promise<Entry<any>[]> {
         params.content_type = type;
@@ -24,5 +24,4 @@ export class ApiService {
         let result = await this.client.getEntry(id);
         return result;
     }
-
 }

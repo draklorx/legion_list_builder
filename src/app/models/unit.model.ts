@@ -1,6 +1,3 @@
 export class Unit {
-    constructor(
-        public unitId: string,
-        public upgradeIds: string[]
-    ) { }
+    constructor(public unitId: string, public upgradeIds: string[]) {}
 }

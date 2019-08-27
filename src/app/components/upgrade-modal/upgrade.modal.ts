@@ -1,20 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-import { ModalDialogParams } from "nativescript-angular/directives/dialogs";
-import { UpgradeService } from "../../services/upgrade.service";
-import { UpgradeDto } from "../../dtos/upgrade_dto.model";
+import { Component, OnInit } from '@angular/core';
+import { ModalDialogParams } from 'nativescript-angular/directives/dialogs';
+import { UpgradeService } from '../../services/upgrade.service';
+import { UpgradeDto } from '../../dtos/upgrade_dto.model';
 
 @Component({
-    selector: "ns-legion-upgrade-modal",
-    templateUrl: "upgrade.modal.html",
-    styleUrls: ["./upgrade.modal.css"]
+    selector: 'ns-legion-upgrade-modal',
+    templateUrl: 'upgrade.modal.html',
+    styleUrls: ['./upgrade.modal.css']
 })
 export class UpgradeModalComponent implements OnInit {
     public upgrades: UpgradeDto[] = [];
 
-    public constructor(
-        private params: ModalDialogParams,
-        private upgradeService: UpgradeService
-    ) { }
+    public constructor(private params: ModalDialogParams, private upgradeService: UpgradeService) {}
 
     public chooseUpgrade(upgrade: UpgradeDto) {
         this.params.closeCallback(upgrade);

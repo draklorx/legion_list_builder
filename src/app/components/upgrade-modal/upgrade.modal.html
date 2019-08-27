@@ -2,7 +2,7 @@
         <ListView [items]="upgrades" class="list-group">
             <ng-template let-upgrade="item">
                 <StackLayout class="list-group-item" (tap)="chooseUpgrade(upgrade)" orientation="horizontal">
-                    <Image [src]="upgrade.cardImageUrl"></Image>
+                    <Image [src]="upgrade.cardImageUrl" class="upgrade-card"></Image>
                 </StackLayout>
             </ng-template>
         </ListView>

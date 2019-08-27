@@ -4,13 +4,12 @@ import { UpgradeTypeDto } from '../dtos/upgrade_type_dto.model';
 import { Entry } from 'contentful';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class UpgradeTypeService {
+    constructor(private apiService: ApiService) {}
 
-  constructor(private apiService: ApiService) { }
-
-  public buildUpgradeTypeDtoFromApiData(apiData: Entry<any>): UpgradeTypeDto {
-    return new UpgradeTypeDto(apiData.sys.id, apiData.fields.name, 'https:/' + apiData.fields.symbolImage.fields.file.url)
-  }
+    public buildUpgradeTypeDtoFromApiData(apiData: Entry<any>): UpgradeTypeDto {
+        return new UpgradeTypeDto(apiData.sys.id, apiData.fields.name, 'https:/' + apiData.fields.symbolImage.fields.file.url);
+    }
 }

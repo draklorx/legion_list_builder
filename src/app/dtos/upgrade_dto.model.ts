@@ -7,5 +7,5 @@ export class UpgradeDto {
         public UpgradeType: UpgradeTypeDto,
         public points: number,
         public cardImageUrl: string
-    ) { }
+    ) {}
 }

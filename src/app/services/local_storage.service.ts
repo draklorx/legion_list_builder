@@ -6,7 +6,7 @@ export class LocalStorageService {
     private database: any;
 
     constructor() {
-        this.database = new Couchbase("legion_app");
+        this.database = new Couchbase('legion_app');
     }
 
     public getDocument(docId: string) {
