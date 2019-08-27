@@ -18,15 +18,11 @@
             <ng-template let-unit="item" let-i="index">
                 <StackLayout class="legion-list-row">
                     <Image [src]="unit.cardFrontImageUrl" (tap)="chooseUpgradeType(unit)" class="unit-card"></Image>
-                    <StackLayout *ngIf="unit.upgrades.length > 0" orientation="horizontal" height="300">
-                        <ListView [items]="unit.upgrades" class="list-group">
-                            <ng-template let-upgrade="item" let-i="index">
-                                <StackLayout>
-                                    <Image [src]="upgrade.cardImageUrl" class="upgrade-card"></Image>
-                                </StackLayout>
-                            </ng-template>
-                        </ListView>
-                    </StackLayout>
+                    <ScrollView *ngIf="unit.upgrades.length > 0" orientation="horizontal">
+                        <StackLayout orientation="horizontal">
+                            <Image *ngFor="let upgrade of unit.upgrades" [src]="upgrade.cardImageUrl" class="upgrade-card"></Image>
+                        </StackLayout>
+                    </ScrollView>
                 </StackLayout>
             </ng-template>
         </ListView>
