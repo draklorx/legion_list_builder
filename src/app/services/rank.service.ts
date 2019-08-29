@@ -10,7 +10,7 @@ export class RankService {
     constructor(private apiService: ApiService) {}
 
     public async getRanks() {
-        let rankData = (await this.apiService.getEntriesByType('rank')) as Entry<any>[];
+        let rankData = (await this.apiService.getEntriesByType('rank', {"order": "fields.order"})) as Entry<any>[];
         let ranks: RankDto[] = [];
         rankData.forEach((rank: Entry<any>) => {
             ranks.push(this.buildRankDtoFromApiData(rank));
@@ -19,6 +19,11 @@ export class RankService {
     }
 
     public buildRankDtoFromApiData(apiData: Entry<any>): RankDto {
-        return new RankDto(apiData.sys.id, apiData.fields.name, 'https:/' + apiData.fields.symbolImage.fields.file.url);
+        return new RankDto(
+            apiData.sys.id,
+            apiData.fields.name,
+            this.apiService.imagePrefix + apiData.fields.symbolImage.fields.file.url,
+            apiData.fields.order
+        );
     }
 }

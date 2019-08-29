@@ -1,4 +1,21 @@
+.unit {
+  margin-top: 30;
+}
+
 .upgrade-card {
   height: 250;
   margin: 5;
 }
+
+.legion-list-name {
+  width: 80%
+}
+
+.legion-list-points {
+  text-align: right;
+  width: 20%;
+  padding-right: 5;
+  font-size:20;
+  padding-top:5;
+}
+

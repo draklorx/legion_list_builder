@@ -73,6 +73,18 @@ export class ListDetailComponent implements OnInit {
         });
     }
 
+    getUnitsInOrder() {
+        this.list.units.forEach(unit => {})
+        return this.list.units.sort((unit1: ListUnitDto, unit2: ListUnitDto) => {
+            if (unit1.rank.order > unit2.rank.order) return 1;
+            if (unit1.rank.order < unit2.rank.order) return -1;
+            if (unit1.name > unit2.name) return 1;
+            if (unit1.name < unit2.name) return -1;
+            return 0;
+        })
+    }
+
+
     chooseRank() {
         let options = {
             context: {},
@@ -110,5 +122,9 @@ export class ListDetailComponent implements OnInit {
 
     cancelChanges() {
         this.router.navigate(['/lists']);
+    }
+
+    calculatePoints() {
+        return this.listService.getPointsForList(this.list);
     }
 }

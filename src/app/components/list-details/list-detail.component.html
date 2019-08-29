@@ -10,21 +10,20 @@
     </ActionItem>
 </ActionBar>
 <StackLayout *ngIf="list">
-    <StackLayout>
-        <TextField [(ngModel)]="list.name"></TextField>
+    <StackLayout orientation="horizontal" class="legion-list-info">
+        <TextField [(ngModel)]="list.name" class="legion-list-name"></TextField>
+        <Label [text]="calculatePoints() + 'pts'" class="legion-list-points"></Label>
     </StackLayout>
-    <StackLayout>
-        <ListView [items]="list.units" class="list-group" height="100%">
-            <ng-template let-unit="item" let-i="index">
-                <StackLayout class="legion-list-row">
-                    <Image [src]="unit.cardFrontImageUrl" (tap)="chooseUpgradeType(unit)" class="unit-card"></Image>
-                    <ScrollView *ngIf="unit.upgrades.length > 0" orientation="horizontal">
-                        <StackLayout orientation="horizontal">
-                            <Image *ngFor="let upgrade of unit.upgrades" [src]="upgrade.cardImageUrl" class="upgrade-card"></Image>
-                        </StackLayout>
-                    </ScrollView>
-                </StackLayout>
-            </ng-template>
-        </ListView>
-    </StackLayout>
+    <ScrollView height="100%">
+        <StackLayout>
+            <StackLayout *ngFor="let unit of getUnitsInOrder()" class="unit">
+                <Image [src]="unit.cardFrontImageUrl" (tap)="chooseUpgradeType(unit)" class="unit-card"></Image>
+                <ScrollView *ngIf="unit.upgrades.length > 0" orientation="horizontal">
+                    <StackLayout orientation="horizontal">
+                        <Image *ngFor="let upgrade of unit.upgrades" [src]="upgrade.cardImageUrl" class="upgrade-card"></Image>
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
 </StackLayout>
