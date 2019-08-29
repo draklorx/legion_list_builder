@@ -8,18 +8,22 @@
 }
 
 .legion-list-points {
+  margin-top: 10;
   text-align: right;
-  width: 20%;
+  width: 25%;
   padding-right: 5;
+  font-size:12;
+  color:#999;
 }
 
 .legion-list-name-faction {
-  width: 80%;
+  width: 75%;
 }
 
 .legion-list-name {
   margin-top: 3;
   margin-left: 10;
-  font-size: 18;
-  line-height: 30;
+  font-size: 16;
+  color:#999;
 }
+

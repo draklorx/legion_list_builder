@@ -2,8 +2,8 @@
     <ListView [items]="upgradeTypes" class="list-group">
         <ng-template let-upgradeType="item">
             <StackLayout class="list-group-item" (tap)="chooseUpgradeType(upgradeType.id)" orientation="horizontal">
-                <Image [src]="upgradeType.imageUrl" class="upgrade-symbol"></Image>
-                <Label [text]="upgradeType.name" class="label"></Label>
+                <Image [src]="upgradeType.imageUrl" class="choice-symbol"></Image>
+                <Label [text]="upgradeType.name" class="label choice-name title"></Label>
             </StackLayout>
         </ng-template>
     </ListView>

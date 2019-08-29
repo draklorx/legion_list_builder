@@ -2,8 +2,8 @@
     <ListView [items]="ranks" class="list-group">
         <ng-template let-rank="item">
             <StackLayout class="list-group-item" (tap)="chooseRank(rank.id)" orientation="horizontal">
-                <Image [src]="rank.imageUrl" class="rank-symbol"></Image>
-                <Label [text]="rank.name" class="label"></Label>
+                <Image [src]="rank.imageUrl" class="choice-symbol"></Image>
+                <Label [text]="rank.name" class="label choice-name title"></Label>
             </StackLayout>
         </ng-template>
     </ListView>

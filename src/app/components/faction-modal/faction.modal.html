@@ -2,8 +2,8 @@
     <ListView [items]="factions" class="list-group">
         <ng-template let-faction="item">
             <StackLayout class="list-group-item" (tap)="chooseFaction(faction.id)" orientation="horizontal">
-                <Image [src]="faction.imageUrl" class="faction-symbol"></Image>
-                <Label [text]="faction.name" class="label"></Label>
+                <Image [src]="faction.imageUrl" class="choice-symbol"></Image>
+                <Label [text]="faction.name" class="label choice-name title"></Label>
             </StackLayout>
         </ng-template>
     </ListView>

@@ -1,9 +1,12 @@
-<ActionBar title="Edit List">
+<ActionBar class="title">
+    <FlexLayout>
+        <Label text="Edit List" class="screen-title title>"></Label>
+    </FlexLayout>
     <ActionItem (tap)="cancelChanges()">
         <Button text="&#xf060;" class="fa"></Button>
     </ActionItem>
     <ActionItem (tap)="saveChanges(list.name)">
-        <Button text="&#xf0c7;" class="fa"></Button>
+        <Button text="&#xf00c;" class="fa"></Button>
     </ActionItem>
     <ActionItem (tap)="chooseRank()">
         <Button text="&#xf067;" class="fa"></Button>
@@ -11,8 +14,11 @@
 </ActionBar>
 <StackLayout *ngIf="list">
     <StackLayout orientation="horizontal" class="legion-list-info">
-        <TextField [(ngModel)]="list.name" class="legion-list-name"></TextField>
-        <Label [text]="calculatePoints() + 'pts'" class="legion-list-points"></Label>
+        <StackLayout class="legion-list-name-faction" orientation="horizontal">
+            <Image [src]="list.faction.imageUrl" class="legion-list-faction"></Image>
+            <TextField [(ngModel)]="list.name" class="legion-list-name title"></TextField>
+        </StackLayout>
+        <Label [text]="calculatePoints() + 'pts'" class="legion-list-points title"></Label>
     </StackLayout>
     <ScrollView height="100%">
         <StackLayout>

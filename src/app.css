@@ -27,6 +27,25 @@ ListView StackLayout {
   padding: 10;
 }
 
+ActionBar .screen-title {
+  font-size: 30;
+}
+
 .fa {
   font-family: 'fontawesome-webfont';
+}
+
+.title {
+  font-family: 'SFFourcheSC';
+}
+
+.choice-symbol {
+  height: 40;
+  margin-right: 20;
+}
+
+.choice-name {
+  color: #999;
+  font-size: 20;
+  font-variant: small-caps;
 }

@@ -1,4 +1,7 @@
-<ActionBar title="Lists" class="fa">
+<ActionBar class="title">
+    <FlexLayout>
+        <Label text="Lists" class="screen-title title>"></Label>
+    </FlexLayout>
     <ActionItem (tap)="chooseFaction()">
         <Button text="&#xf067;" class="fa"></Button>
     </ActionItem>
@@ -8,10 +11,10 @@
         <ng-template let-list="item" let-i="index">
             <StackLayout [nsRouterLink]="['/list', i]" class="legion-list-row" orientation="horizontal">
                 <StackLayout class="legion-list-name-faction" orientation="horizontal">
-                    <Image [src]="list.faction.imageUrl" height="30" class="legion-list-faction"></Image>
-                    <Label [text]="list.name" class="legion-list-name"></Label>
+                    <Image [src]="list.faction.imageUrl" class="legion-list-faction"></Image>
+                    <Label [text]="list.name" class="legion-list-name title"></Label>
                 </StackLayout>
-                <Label [text]="getPointsForList(list) + 'pts'" class="legion-list-points"></Label>
+                <Label [text]="getPointsForList(list) + 'pts'" class="legion-list-points title"></Label>
             </StackLayout>
         </ng-template>
     </ListView>
