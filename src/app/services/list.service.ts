@@ -8,8 +8,8 @@ import { FactionDto } from '../dtos/faction_dto.model';
 import { UnitService } from '../services/unit.service';
 import { ListUnitService } from '../services/list_unit.service';
 import { UpgradeService } from '../services/upgrade.service';
-import { UpgradeDto } from '../dtos/upgrade_dto.model';
 import { ListUnitDto } from '../dtos/list_unit_dto.model';
+import { ListUpgradeTypeDto } from '../dtos/list_upgrade_type_dto.model';
 
 @Injectable()
 export class ListService {
@@ -68,7 +68,11 @@ export class ListService {
             let listUnitDto = ListUnitService.generate(unitDto);
             unit.upgradeIds.forEach(async upgradeId => {
                 let upgradeDto = await this.upgradeService.getUpgradeById(upgradeId);
-                listUnitDto.upgrades.push(upgradeDto);
+                listUnitDto.upgradeSlots.forEach((upgradeSlot: ListUpgradeTypeDto) => {
+                    if (upgradeSlot.id == upgradeDto.typeId && upgradeSlot.upgrade == null) {
+                        upgradeSlot.upgrade = upgradeDto;
+                    }
+                });
             });
             listDto.units.push(listUnitDto);
         });
@@ -81,8 +85,9 @@ export class ListService {
         listDto.units.forEach((listUnitDto: ListUnitDto) => {
             let unit = new Unit(listUnitDto.id, []);
 
-            listUnitDto.upgrades.forEach((upgradeDto: UpgradeDto) => {
-                unit.upgradeIds.push(upgradeDto.id);
+            listUnitDto.upgradeSlots.forEach((listUpgradeTypeDto: ListUpgradeTypeDto) => {
+                if (listUpgradeTypeDto.upgrade)
+                    unit.upgradeIds.push(listUpgradeTypeDto.upgrade.id);
             });
 
             list.units.push(unit);
@@ -108,8 +113,9 @@ export class ListService {
         let points = 0;
         list.units.forEach(unit => {
             points += unit.points;
-            unit.upgrades.forEach(upgrade => {
-                points += upgrade.points;
+            unit.upgradeSlots.forEach(upgradeSlot => {
+                if (upgradeSlot.upgrade)
+                    points += upgradeSlot.upgrade.points;
             });
         });
         return points;

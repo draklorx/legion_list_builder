@@ -13,6 +13,7 @@ import { UpgradeTypeDto } from '../../dtos/upgrade_type_dto.model';
 import { UpgradeTypeModalComponent } from '../upgrade-type-modal/upgrade_type.modal';
 import { UpgradeModalComponent } from '../upgrade-modal/upgrade.modal';
 import { ListUnitService } from '~/app/services/list_unit.service';
+import { ListUpgradeTypeDto } from '~/app/dtos/list_upgrade_type_dto.model';
 
 @Component({
     selector: 'ns-legion-list-details',
@@ -54,23 +55,27 @@ export class ListDetailComponent implements OnInit {
             viewContainerRef: this.vcRef
         };
 
-        this.modal.showModal(UpgradeTypeModalComponent, options).then(upgradeTypeId => {
-            if (upgradeTypeId) {
-                let options = {
-                    context: {
-                        upgradeTypeId: upgradeTypeId,
-                        unit: listUnit
-                    },
-                    fullscreen: true,
-                    viewContainerRef: this.vcRef
-                };
-                this.modal.showModal(UpgradeModalComponent, options).then(upgrade => {
-                    if (upgrade) {
-                        listUnit.upgrades.push(upgrade);
-                    }
-                });
+        this.modal.showModal(UpgradeTypeModalComponent, options).then(upgradeSlot => {
+            if (upgradeSlot) {
+                this.chooseUpgrade(upgradeSlot, listUnit);
             }
         });
+    }
+    chooseUpgrade(upgradeSlot: ListUpgradeTypeDto, unit: ListUnitDto) {
+        let options = {
+            context: {
+                upgradeSlot: upgradeSlot,
+                unit: unit
+            },
+            fullscreen: true,
+            viewContainerRef: this.vcRef
+        };
+        this.modal.showModal(UpgradeModalComponent, options).then(upgrade => {
+            if (upgrade) {
+                upgradeSlot.upgrade = upgrade;
+            }
+        });
+
     }
 
     getUnitsInOrder() {

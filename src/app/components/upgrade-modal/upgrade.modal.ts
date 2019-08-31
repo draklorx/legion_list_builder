@@ -18,7 +18,10 @@ export class UpgradeModalComponent implements OnInit {
     }
 
     async ngOnInit() {
-        let upgrades = await this.upgradeService.getUpgradesByTypeAndUnit(this.params.context.upgradeTypeId, this.params.context.unit);
+        let upgrades = await this.upgradeService.getUpgradesByTypeAndUnit(
+            this.params.context.upgradeSlot.id,
+            this.params.context.unit
+        );
         this.upgrades = upgrades;
     }
 }

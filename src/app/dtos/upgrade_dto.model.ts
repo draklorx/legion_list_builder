@@ -4,7 +4,7 @@ export class UpgradeDto {
     constructor(
         public id: string,
         public name: string,
-        public UpgradeType: UpgradeTypeDto,
+        public typeId: string,
         public points: number,
         public cardImageUrl: string
     ) {}

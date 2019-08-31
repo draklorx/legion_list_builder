@@ -24,9 +24,11 @@
         <StackLayout>
             <StackLayout *ngFor="let unit of getUnitsInOrder()" class="unit">
                 <Image [src]="unit.cardFrontImageUrl" (tap)="chooseUpgradeType(unit)" class="unit-card"></Image>
-                <ScrollView *ngIf="unit.upgrades.length > 0" orientation="horizontal">
+                <ScrollView *ngIf="unit.upgradeSlots.length > 0" orientation="horizontal">
                     <StackLayout orientation="horizontal">
-                        <Image *ngFor="let upgrade of unit.upgrades" [src]="upgrade.cardImageUrl" class="upgrade-card"></Image>
+                        <StackLayout *ngFor="let upgradeSlot of unit.upgradeSlots">
+                            <Image *ngIf="upgradeSlot.upgrade" [src]="upgradeSlot.upgrade.cardImageUrl" class="upgrade-card" (tap)="chooseUpgrade(upgradeSlot)"></Image>
+                        </StackLayout>
                     </StackLayout>
                 </ScrollView>
             </StackLayout>

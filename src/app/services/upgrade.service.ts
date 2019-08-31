@@ -33,7 +33,7 @@ export class UpgradeService {
         return new UpgradeDto(
             apiData.sys.id,
             apiData.fields.name,
-            apiData.fields.upgradeType.fields.name,
+            apiData.fields.upgradeType.sys.id,
             apiData.fields.points,
             this.apiService.imagePrefix + apiData.fields.cardImage.fields.file.url
         );
