@@ -14,6 +14,7 @@ import { UpgradeTypeModalComponent } from '../upgrade-type-modal/upgrade_type.mo
 import { UpgradeModalComponent } from '../upgrade-modal/upgrade.modal';
 import { ListUnitService } from '~/app/services/list_unit.service';
 import { ListUpgradeTypeDto } from '~/app/dtos/list_upgrade_type_dto.model';
+import { OptionsModalComponent } from '../options-modal/options.modal';
 
 @Component({
     selector: 'ns-legion-list-details',
@@ -78,6 +79,50 @@ export class ListDetailComponent implements OnInit {
 
     }
 
+    unitOptions(unit: ListUnitDto) {
+
+        let options = {
+            context: {
+                choices: ['Choose Upgrades', 'Delete']
+            },
+            fullscreen: false,
+            viewContainerRef: this.vcRef
+        };
+
+        this.modal.showModal(OptionsModalComponent, options).then(async (choice: string) => {
+            if (choice == "Choose Upgrades") {
+                this.chooseUpgradeType(unit);
+            }
+            else if (choice == "Delete") {
+                this.list.units.forEach((currentUnit: ListUnitDto, index: number, units: ListUnitDto[]) => {
+                    if (currentUnit.listUnitId == unit.listUnitId) {
+                        units.splice(index, 1);
+                    }
+                })
+            }
+        });
+    }
+
+    upgradeOptions(upgradeSlot: ListUpgradeTypeDto, unit: ListUnitDto) {
+
+        let options = {
+            context: {
+                choices: ['Choose Upgrade', 'Delete']
+            },
+            fullscreen: false,
+            viewContainerRef: this.vcRef
+        };
+
+        this.modal.showModal(OptionsModalComponent, options).then(async (choice: string) => {
+            if (choice == "Choose Upgrade") {
+                this.chooseUpgrade(upgradeSlot, unit);
+            }
+            else if (choice == "Delete") {
+                upgradeSlot.upgrade = null;
+            }
+        });
+    }
+
     getUnitsInOrder() {
         this.list.units.forEach(unit => {})
         return this.list.units.sort((unit1: ListUnitDto, unit2: ListUnitDto) => {
@@ -109,7 +154,7 @@ export class ListDetailComponent implements OnInit {
                 };
                 this.modal.showModal(UnitModalComponent, options).then(unit => {
                     if (unit) {
-                        this.list.units.push(ListUnitService.generate(unit));
+                        this.list.units.push(ListUnitService.generate(unit, this.list.units.length+1));
                     }
                 });
             }

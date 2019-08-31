@@ -5,6 +5,7 @@ import { ListUpgradeTypeDto } from './list_upgrade_type_dto.model';
 
 export class ListUnitDto extends UnitDto {
     constructor(
+        public listUnitId: number,
         public id: string,
         public name: string,
         public faction: FactionDto,

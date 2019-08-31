@@ -23,11 +23,11 @@
     <ScrollView height="100%">
         <StackLayout>
             <StackLayout *ngFor="let unit of getUnitsInOrder()" class="unit">
-                <Image [src]="unit.cardFrontImageUrl" (tap)="chooseUpgradeType(unit)" class="unit-card"></Image>
+                <Image [src]="unit.cardFrontImageUrl" (longPress)="unitOptions(unit)" (tap)="chooseUpgradeType(unit)" class="unit-card"></Image>
                 <ScrollView *ngIf="unit.upgradeSlots.length > 0" orientation="horizontal">
                     <StackLayout orientation="horizontal">
                         <StackLayout *ngFor="let upgradeSlot of unit.upgradeSlots">
-                            <Image *ngIf="upgradeSlot.upgrade" [src]="upgradeSlot.upgrade.cardImageUrl" class="upgrade-card" (tap)="chooseUpgrade(upgradeSlot)"></Image>
+                            <Image *ngIf="upgradeSlot.upgrade" [src]="upgradeSlot.upgrade.cardImageUrl" class="upgrade-card" (longPress)="upgradeOptions(upgradeSlot, unit)" (tap)="chooseUpgrade(upgradeSlot, unit)"></Image>
                         </StackLayout>
                     </StackLayout>
                 </ScrollView>

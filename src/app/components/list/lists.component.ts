@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 
 import { ListDto } from '../../dtos/list_dto.model';
 import { ListService } from '../../services/list.service';
+import { OptionsModalComponent } from '../options-modal/options.modal';
 
 @Component({
     selector: 'ns-legion-lists',
@@ -52,6 +53,27 @@ export class ListsComponent implements OnInit {
                 setTimeout(() => {
                     this.router.navigate(['/list/new', factionId]);
                 }, 30);
+            }
+        });
+    }
+
+    listOptions(listIndex: number) {
+
+        let options = {
+            context: {
+                choices: ['Edit', 'Delete']
+            },
+            fullscreen: false,
+            viewContainerRef: this.vcRef
+        };
+
+        this.modal.showModal(OptionsModalComponent, options).then(async (choice: string) => {
+            if (choice == "Edit") {
+                this.router.navigate(['/list', listIndex]);
+            }
+            else if (choice == "Delete") {
+                this.listService.deleteList(listIndex);
+                this.lists = await this.listService.getLists();
             }
         });
     }

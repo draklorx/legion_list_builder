@@ -63,9 +63,9 @@ export class ListService {
 
         let listDto = new ListDto(list.name, faction, []);
 
-        list.units.forEach(async unit => {
+        list.units.forEach(async (unit: Unit, index: number) => {
             let unitDto = await this.unitService.getUnitById(unit.unitId);
-            let listUnitDto = ListUnitService.generate(unitDto);
+            let listUnitDto = ListUnitService.generate(unitDto, index+1);
             unit.upgradeIds.forEach(async upgradeId => {
                 let upgradeDto = await this.upgradeService.getUpgradeById(upgradeId);
                 listUnitDto.upgradeSlots.forEach((upgradeSlot: ListUpgradeTypeDto) => {

@@ -1,0 +1,9 @@
+<GridLayout>
+        <ListView [items]="options" class="list-group">
+            <ng-template let-option="item">
+                <StackLayout class="list-group-item" (tap)="chooseOption(option)" orientation="horizontal">
+                    <Label [text]="option" class="label choice-name title"></Label>
+                </StackLayout>
+            </ng-template>
+        </ListView>
+    </GridLayout>

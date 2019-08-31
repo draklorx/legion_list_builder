@@ -10,9 +10,10 @@ import { ListUpgradeTypeDto } from '../dtos/list_upgrade_type_dto.model';
 export class ListUnitService {
     constructor() {}
 
-    public static generate(unitDto: UnitDto): ListUnitDto {
+    public static generate(unitDto: UnitDto, listUnitId: number): ListUnitDto {
         // Set up base unit.
         let listUnitDto = new ListUnitDto(
+            listUnitId,
             unitDto.id,
             unitDto.name,
             unitDto.faction,
