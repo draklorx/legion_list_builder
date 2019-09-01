@@ -81,4 +81,9 @@ export class ListsComponent implements OnInit {
     getPointsForList(listDto: ListDto) {
         return this.listService.getPointsForList(listDto);
     }
+
+
+    getUnitsInOrder(list) {
+        return this.listService.getUnitsInOrder(list);
+    }
 }

@@ -95,6 +95,17 @@ export class ListService {
         return list;
     }
 
+    public getUnitsInOrder(list: ListDto) {
+        return list.units.sort((unit1: ListUnitDto, unit2: ListUnitDto) => {
+            if (unit1.rank.order > unit2.rank.order) return 1;
+            if (unit1.rank.order < unit2.rank.order) return -1;
+            if (unit1.name > unit2.name) return 1;
+            if (unit1.name < unit2.name) return -1;
+            return 0;
+        })
+
+    }
+
     public updateList(listDto: ListDto, listIndex: number) {
         if (listIndex >= 0 && listIndex < this.lists.length) {
             this.lists[listIndex] = this.buildListFromListDto(listDto);

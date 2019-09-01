@@ -3,7 +3,10 @@
         <ng-template let-upgradeType="item">
             <StackLayout class="list-group-item" (tap)="chooseUpgradeType(upgradeType)" orientation="horizontal">
                 <Image [src]="upgradeType.imageUrl" class="choice-symbol"></Image>
-                <Label [text]="upgradeType.name" class="label choice-name title"></Label>
+                <StackLayout class="upgrade-text">
+                    <Label [text]="upgradeType.name" class="label choice-name title"></Label>
+                    <Label [text]="upgradeType.upgrade.name" *ngIf="upgradeType.upgrade" class="selected-upgrade"></Label>
+                </StackLayout>
             </StackLayout>
         </ng-template>
     </ListView>

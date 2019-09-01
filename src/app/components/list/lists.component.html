@@ -9,12 +9,19 @@
 <StackLayout>
     <ListView [items]="lists" class="list-group" height="100%">
         <ng-template let-list="item" let-i="index">
-            <StackLayout (longPress)="listOptions(i)" [nsRouterLink]="['/list', i]" class="legion-list-row" orientation="horizontal">
-                <StackLayout class="legion-list-name-faction" orientation="horizontal">
-                    <Image [src]="list.faction.imageUrl" class="legion-list-faction"></Image>
-                    <Label [text]="list.name" class="legion-list-name title"></Label>
+            <StackLayout (longPress)="listOptions(i)" [nsRouterLink]="['/list', i]" class="legion-list-row">
+                <StackLayout>
+                    <StackLayout orientation="horizontal">
+                        <StackLayout class="legion-list-name-faction" orientation="horizontal">
+                            <Image [src]="list.faction.imageUrl" class="legion-list-faction"></Image>
+                            <Label [text]="list.name" class="legion-list-name title"></Label>
+                        </StackLayout>
+                        <Label [text]="getPointsForList(list) + 'pts'" class="legion-list-points title"></Label>
+                    </StackLayout>
+                    <WrapLayout orientation="horizontal" class="legion-list-units">
+                        <Label *ngFor="let unit of getUnitsInOrder(list); let isLast = last" [text]="unit.name + (isLast ? '' : ', ')"></Label>
+                    </WrapLayout>
                 </StackLayout>
-                <Label [text]="getPointsForList(list) + 'pts'" class="legion-list-points title"></Label>
             </StackLayout>
         </ng-template>
     </ListView>

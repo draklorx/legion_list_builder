@@ -1,0 +1,13 @@
+StackLayout {
+    margin: 0;
+    padding: 0;
+}
+
+.selected-upgrade {
+    font-size:10;
+    color: #666;
+}
+
+.upgrade-text {
+    background-color:#303030;
+}
