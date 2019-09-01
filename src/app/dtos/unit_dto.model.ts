@@ -8,6 +8,7 @@ export class UnitDto {
         public name: string,
         public faction: FactionDto,
         public rank: RankDto,
+        public unitType: string,
         public upgradeSlots: UpgradeTypeDto[],
         public points: number,
         public cardFrontImageUrl: string

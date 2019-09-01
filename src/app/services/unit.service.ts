@@ -42,6 +42,7 @@ export class UnitService {
             apiData.fields.name,
             this.factionService.buildFactionDtoFromApiData(apiData.fields.faction),
             this.rankService.buildRankDtoFromApiData(apiData.fields.rank),
+            apiData.fields.unitType.fields.name,
             upgradeSlots,
             apiData.fields.points,
             this.apiService.imagePrefix + apiData.fields.cardImageFront.fields.file.url

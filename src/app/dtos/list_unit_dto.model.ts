@@ -10,10 +10,11 @@ export class ListUnitDto extends UnitDto {
         public name: string,
         public faction: FactionDto,
         public rank: RankDto,
+        public unitType: string,
         public upgradeSlots: ListUpgradeTypeDto[],
         public points: number,
         public cardFrontImageUrl: string
     ) {
-        super(id, name, faction, rank, upgradeSlots, points, cardFrontImageUrl);
+        super(id, name, faction, rank, unitType, upgradeSlots, points, cardFrontImageUrl);
     }
 }

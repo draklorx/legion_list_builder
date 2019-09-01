@@ -36,6 +36,7 @@ export class ListDetailComponent implements OnInit {
     ) {}
 
     async ngOnInit() {
+        console.log("list detail init2");
         if (this.route.snapshot.params.id) {
             const listIndex = this.route.snapshot.params.id;
             this.list = await this.listService.getList(listIndex);
@@ -62,6 +63,7 @@ export class ListDetailComponent implements OnInit {
             }
         });
     }
+
     chooseUpgrade(upgradeSlot: ListUpgradeTypeDto, unit: ListUnitDto) {
         let options = {
             context: {
@@ -76,7 +78,6 @@ export class ListDetailComponent implements OnInit {
                 upgradeSlot.upgrade = upgrade;
             }
         });
-
     }
 
     unitOptions(unit: ListUnitDto) {

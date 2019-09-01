@@ -23,8 +23,26 @@ export class UpgradeService {
         let upgradeData = (await this.apiService.getEntriesByType('upgrade', { 'fields.upgradeType.sys.id': typeId })) as Entry<any>[];
         let upgrades: UpgradeDto[] = [];
         upgradeData.forEach((upgrade: Entry<any>) => {
-            //let faction = this.factionService
-            upgrades.push(this.buildUpgradeDtoFromApiData(upgrade));
+            if (upgrade.fields.restrictedTo) {
+                upgrade.fields.restrictedTo.forEach(restriction => {
+                    if (
+                        (
+                            restriction.sys.contentType.sys.id == "unit"
+                            &&
+                            restriction.sys.id == unit.id
+                        )
+                        || (
+                            restriction.sys.contentType.sys.id == "faction"
+                            &&
+                            restriction.sys.id == unit.faction.id
+                        )
+                    )
+                        upgrades.push(this.buildUpgradeDtoFromApiData(upgrade));
+                });
+            }
+            else {
+                upgrades.push(this.buildUpgradeDtoFromApiData(upgrade));
+            }
         });
         return upgrades;
     }

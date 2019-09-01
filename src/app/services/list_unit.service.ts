@@ -18,6 +18,7 @@ export class ListUnitService {
             unitDto.name,
             unitDto.faction,
             unitDto.rank,
+            unitDto.unitType,
             [],
             unitDto.points,
             unitDto.cardFrontImageUrl

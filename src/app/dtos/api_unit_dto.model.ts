@@ -10,11 +10,12 @@ export class ApiUnitDto extends UnitDto {
         public name: string,
         public faction: FactionDto,
         public rank: RankDto,
+        public unitType: string,
         public upgradeSlots: UpgradeTypeDto[],
         public points: number,
         public cardFrontImageUrl: string,
         public upgrades: UpgradeDto[]
     ) {
-        super(id, name, faction, rank, upgradeSlots, points, cardFrontImageUrl);
+        super(id, name, faction, rank, unitType, upgradeSlots, points, cardFrontImageUrl);
     }
 }
