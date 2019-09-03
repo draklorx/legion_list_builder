@@ -21,7 +21,8 @@ export class UnitService {
     public async getUnitsForFactionAndRank(factionId: string, rankId: string) {
         let unitData = (await this.apiService.getEntriesByType('unit', {
             'fields.faction.sys.id': factionId,
-            'fields.rank.sys.id': rankId
+            'fields.rank.sys.id': rankId,
+            "order": "fields.name"
         })) as Entry<any>[];
         let units: UnitDto[] = [];
         unitData.forEach((unit: Entry<any>) => {

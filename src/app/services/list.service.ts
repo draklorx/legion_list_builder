@@ -102,8 +102,7 @@ export class ListService {
             if (unit1.name > unit2.name) return 1;
             if (unit1.name < unit2.name) return -1;
             return 0;
-        })
-
+        });
     }
 
     public updateList(listDto: ListDto, listIndex: number) {

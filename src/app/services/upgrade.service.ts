@@ -20,25 +20,43 @@ export class UpgradeService {
     ) {}
 
     public async getUpgradesByTypeAndUnit(typeId: string, unit: UnitDto) {
-        let upgradeData = (await this.apiService.getEntriesByType('upgrade', { 'fields.upgradeType.sys.id': typeId })) as Entry<any>[];
+        let upgradeData = (await this.apiService.getEntriesByType('upgrade', { 'fields.upgradeType.sys.id': typeId, "order": "fields.name" })) as Entry<any>[];
         let upgrades: UpgradeDto[] = [];
         upgradeData.forEach((upgrade: Entry<any>) => {
+            // If there is a restriction on the upgrade.
             if (upgrade.fields.restrictedTo) {
+                // Assume all possible restrictions match.
+                let unitMatch = true;
+                let unitTypeMatch = true;
+                let factionMatch = true;
+                // Loop over each possible restriction and if one exists for a type, assume that type does not match.
                 upgrade.fields.restrictedTo.forEach(restriction => {
-                    if (
-                        (
-                            restriction.sys.contentType.sys.id == "unit"
-                            &&
-                            restriction.sys.id == unit.id
-                        )
-                        || (
-                            restriction.sys.contentType.sys.id == "faction"
-                            &&
-                            restriction.sys.id == unit.faction.id
-                        )
-                    )
-                        upgrades.push(this.buildUpgradeDtoFromApiData(upgrade));
+                    if (restriction.sys.contentType.sys.id == "unit") {
+                        unitMatch = false;
+                    }
+                    else if (restriction.sys.contentType.sys.id == "faction") {
+                        factionMatch = false;
+                    }
+                    else if (restriction.sys.contentType.sys.id == "unitType") {
+                        unitTypeMatch = false;
+                    }
                 });
+                // Loop over all possible restrictions again, and if any match is good within a possible set then it is good.
+                upgrade.fields.restrictedTo.forEach(restriction => {
+                    if (restriction.sys.contentType.sys.id == "unit" && restriction.sys.id == unit.id) {
+                        unitMatch = true;
+                    }
+                    else if (restriction.sys.contentType.sys.id == "faction" && restriction.sys.id == unit.faction.id) {
+                        factionMatch = true;
+                    }
+                    else if (restriction.sys.contentType.sys.id == "unitType" && restriction.fields.name == unit.unitType) {
+                        unitTypeMatch = true;
+                    }
+                });
+                // If there is no restriction, or if each restriction matches on at least one entry then add it.
+                if (unitMatch && unitTypeMatch && factionMatch) {
+                    upgrades.push(this.buildUpgradeDtoFromApiData(upgrade));
+                }
             }
             else {
                 upgrades.push(this.buildUpgradeDtoFromApiData(upgrade));
